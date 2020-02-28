@@ -1,31 +1,34 @@
-an array of size 3 to hold the up to 3 programs
+
 
 char *ram[1000];
 
-loadToRam
+int startInRam = 0;
+int endInRam = 0;
+
+loadToRam(FILE*, int *start, int *end)
 {
-	int startInRam = base;
+	
 	int counteroflines = 0;
-	int endInRam;
-	fopen(script)
-	getNextCellRam()
-	copyLinesToRam()
+	
+	fopen(FILE*)
+	getNextCellRam(){
 	endInRam= startInRam + counteroflines;
 
-	helper
+}
+
+void clearRam()
+{
+	for ( i=0 ; i < 1000 ; i++ )
 	{
-		fgets(file,buffer,limit)
-		ram[k] = strdup(buffer)
+		if (ram[i] != NULL) 
+		{free(ram[i]);}
+
+		ram[i] = NULL;
 	}
+}
 
-	clearRam
-	{
-		for ( i=0 ; i < 1000 ; i++ )
-		{
-			ram[i] = NULL;
-		}
-	}
-
-
-
+void copyLinesToRam()
+{
+	fgets(file,buffer,limit)
+	ram[k] = strdup(buffer)
 }
