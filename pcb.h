@@ -1,3 +1,7 @@
+#ifndef PCB_H
+#define PCB_H
+
+
 typedef struct PCB 
 { 
 	int PC ; 
@@ -5,8 +9,3 @@ typedef struct PCB
 	int end ; 
 
 };
-
-PCB* makePCB(int start, int end)
-{
-	s
-}

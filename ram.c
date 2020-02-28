@@ -1,32 +1,43 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
 char *ram[1000];
 
 int startInRam = 0;
 int endInRam = 0;
+int firstEmptyCell;
 
-loadToRam(FILE*, int *start, int *end)
+void addToRam(FILE*, int *start, int *end)
 {
-	program = fopen(FILE*, "r");
+	FILE * program = fopen(FILE*, "r");
 	
 	int line_numbers = 0;
+	char buffer[1000];
 	while(fgets(buffer, 1000, program) != NULL)
 	{
 		line_numbers++;
 	}
-	int i = 0;
-	while(fgets(buffer, 1000, program))
+	for ( int i = 0 ; i < 1000 ; i++) 
 	{
-		addToRam(buffer);
+		if (ram[i] == NULL) { firstEmptyCell = i; break; }
+	}
+	*start = firstEmptyCell;
+	rewind(program);
+	int i = firstEmptyCell;
+	while(fgets(buffer, 1000, program) != NULL)
+	{
 		ram[i] = strdup(buffer);
+		i++;
 	}
 
-	getNextCellRam(){
-	endInRam= startInRam + counteroflines;
+	*end = start + line_numbers;
 
 }
 
 void clearRam()
 {
-	for ( i=0 ; i < 1000 ; i++ )
+	for ( int i = 0 ; i < 1000 ; i++ )
 	{
 		if (ram[i] != NULL) 
 		{free(ram[i]);}
@@ -35,8 +46,3 @@ void clearRam()
 	}
 }
 
-void copyLinesToRam()
-{
-	fgets(file,buffer,limit)
-	ram[k] = strdup(buffer)
-}

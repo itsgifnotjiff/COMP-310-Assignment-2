@@ -1,17 +1,24 @@
-This is where the actual main method would be
+#include "ram.h"
 
 myinit(char *filename)
 {
-	addToRAM(FILE *p, int *start, int *end);
-	makePCB(int start , int end);
-	addToReady(PCB *)
+	CPU.quanta = 2;
+	re
+	addToRam(FILE *p, int *start, int *end);
+	//makePCB(int start , int end);
+	//addToReady(PCB *)
+	//addToScheduler()
 
 
 }
 
+addToReady(PCB *) 
+{
+	
+}
+
 scheduler()
 {
-	isCPUAvailable();
-
+	
 
 }

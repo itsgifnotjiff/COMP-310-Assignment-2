@@ -228,5 +228,5 @@ int interpret(char *raw_input)
 
 void exec() 
 {
-	return 0;
+
 }
