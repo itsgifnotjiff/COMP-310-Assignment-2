@@ -1,3 +1,8 @@
-LInked list
-
-struct PCB { int PC ; int start ; int end ; *head ; *tail }
+typedef struct PCB 
+{ 
+	int PC ; 
+	int start ; 
+	int end ; 
+	PCB *head ;
+	PCB *tail ;
+}

@@ -225,3 +225,8 @@ int interpret(char *raw_input)
     free(tokens);
     return 1;
 }
+
+void exec() 
+{
+	return 0;
+}
