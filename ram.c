@@ -8,9 +8,9 @@ int startInRam = 0;
 int endInRam = 0;
 int firstEmptyCell;
 
-void addToRam(FILE*, int *start, int *end)
+void addToRam(FILE* file, int *start, int *end)
 {
-	FILE * program = fopen(FILE*, "r");
+	FILE* program = fopen(file, "r");
 	
 	int line_numbers = 0;
 	char buffer[1000];

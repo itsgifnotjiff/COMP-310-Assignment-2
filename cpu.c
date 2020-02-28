@@ -7,12 +7,7 @@ struct CPU
 	int quanta ;
 } CPU;
 
-struct readyQueue
-{
-	bool isEmpty;
-	PCB *head ;
-	PCB *tail ;
-} readyQueue ;
+
 
 bool isAvailable()
 {

@@ -1,12 +1,11 @@
-typedef struct PCB 
-{ 
-	int PC ; 
-	int start ; 
-	int end ; 
-
-};
+#include "pcb.h"
 
 PCB* makePCB(int start, int end)
 {
-	s
+	PCB* thispcb = (PCB*) (malloc(sizeof(PCB)));
+	thispcb->start = start;
+	thispcb->end = end;
+	thispcb->next = NULL;
+	thispcb->PC = start; 
+	return thispcb;
 }

@@ -1,5 +1,12 @@
 #include "ram.h"
 
+struct readyQueue
+{
+	PCB *head ;
+	PCB *tail ;
+} readyQueue ;
+
+
 myinit(char *filename)
 {
 	CPU.quanta = 2;
@@ -19,6 +26,6 @@ addToReady(PCB *)
 
 scheduler()
 {
-	
+	if 
 
 }
