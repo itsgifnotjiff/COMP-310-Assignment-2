@@ -1,4 +1,6 @@
 #include "ram.h"
+#include "pcb.h"
+#include "cpu.h"
 
 struct readyQueue
 {
@@ -25,7 +27,6 @@ addToReady(PCB *)
 }
 
 scheduler()
-{
-	if 
+{ 
 
 }
