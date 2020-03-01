@@ -5,56 +5,30 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-int main(int argc, const char *argv[])
-{
-    printf("Welcome to the Yordan Radev shell!\n"
-           "Version 2.0 Created February 2020\n");
-
-    shell_memory_initialize();
-
-    while (!feof(stdin))
-    {
-        printf("$ ");
-        fflush(stdout);
-
-        char *line = NULL;
-        size_t linecap = 0;
-        if (getline(&line, &linecap, stdin) == -1)
-            break;
-
-        (void)interpreter(line);
-        free(line);
-    }
-
-    shell_memory_destory();
-
-    return 0;
-}
-
 int parse(char userInput[])
 {
 	char temp[200];
 	char* words[100];
 
-	int a,b;
-	int numberWords = 0;
+	int start,end;
+	int numberArgs = 0;
 
-	for( a = 0 ; userInput[a] == ' ' && a < 1000; a++);
+	for( start = 0 ; userInput[start] == ' ' && start < 1000; start++);
 
-	while(userInput[a] != '\0' && a < 1000){
-		for( b = 0 ; userInput[a] != '\0' && userInput[a] != ' ' && userInput[a] != '\n' && a < 1000; a++, b++)
+	while(userInput[start] != '\0' && start < 1000){
+		for( end = 0 ; userInput[start] != '\0' && userInput[start] != ' ' && userInput[start] != '\n' && start < 1000; start++, end++)
         {
-			temp[b] = userInput[a];
+			temp[end] = userInput[start];
 		}
 
-		temp[b] = '\0';
+		temp[end] = '\0';
 
-		words[numberWords] = strdup(temp);
-		a++;
-		numberWords++;
+		words[numberArgs] = strdup(temp);
+		start++;
+		numberArgs++;
 	}
 
-	return interpreter(words, numberWords);
+	return interpreter(words, numberArgs);
 }
 
 
