@@ -8,6 +8,8 @@
 #include <string.h>
 #include <stdio.h>
 
+static int run(const char *path);
+
 char **tokenize(char *str)
 {
     size_t num_tokens = 1;
@@ -89,7 +91,8 @@ int help()
            "quit            Exits / terminates the shell with \"Bye!\"\n"
            "set VAR STRING  Assigns a value to shell memory\n"
            "print VAR       Displays the STRING assigned to VAR\n"
-           "run SCRIPT.TXT  Executes the file SCRIPT.TXT\n");
+           "run SCRIPT.TXT  Executes the file SCRIPT.TXT\n"
+           "exec p1 p2 p3   Executes concurrent programs\n");
     return 0;
 }
 
@@ -103,7 +106,7 @@ int quit()
     }
     return 0;
 }
-
+/*
 int run(const char *path)
 {
     FILE *file = fopen(path, "r");
@@ -132,6 +135,7 @@ int run(const char *path)
     in_file_flag = enter_flag_status;
     return 0;
 }
+*/
 
 int set(const char *key, const char *value)
 {
@@ -306,11 +310,11 @@ int exec( char* argument[] , int numWords )
 	return errorCode;
 }
 
-static int run(char* program)
+static int run(const char *path)
 {
 	int errorCode = 0 ;
 	char program_line[1000] ;
-	FILE *p = fopen( program , "r" ) ;
+	FILE *p = fopen( path , "r" ) ;
 
 	if( p == NULL )
 	{
