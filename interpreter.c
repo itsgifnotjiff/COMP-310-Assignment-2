@@ -1,5 +1,7 @@
 #include "interpreter.h"
 #include "shellmemory.h"
+#include "kernel.h"
+#include "shell.h"
 
 #include <stdlib.h>
 #include <stdint.h>
@@ -77,7 +79,7 @@ char **tokenize(char *str)
 }
 
 int in_file_flag = 0;
-int interpret(char *raw_input);
+int interpreter(char *raw_input);
 
 int help()
 {
@@ -118,7 +120,7 @@ int run(const char *path)
         size_t linecap = 0;
         getline(&line, &linecap, file);
 
-        int status = interpret(line);
+        int status = interpreter(line);
         free(line);
         if (status != 0)
         {
@@ -151,7 +153,7 @@ int print(const char *key)
     return 0;
 }
 
-int interpret(char *raw_input)
+int interpreter(char *raw_input)
 {
     char **tokens = tokenize(raw_input);
 
@@ -226,7 +228,112 @@ int interpret(char *raw_input)
     return 1;
 }
 
-void exec() 
+int exec( char* argument[] , int numWords )
 {
+	int errorCode = 0 ;
+	int sameProgram = 0 ;
+	char* program ;
 
+	if ( numWords < 2 || numWords > 4 )
+	{
+		errorCode = 7 ;
+		return errorCode ;
+	}
+
+	if ( numWords == 3 )
+	{
+		if( strcmp( argument[1] , argument[2]) == 0 )
+		{
+			sameProgram = 2 ;
+			program = argument[2] ;
+		}
+	}
+
+	if ( numWords == 4 )
+    {
+		if ((strcmp(argument[1], argument[3]) == 0) && (strcmp(argument[2], argument[3]) == 0))
+		{
+			sameProgram = -1 ;
+			program = argument[1] ;
+
+		} else if (strcmp(argument[1], argument[3]) == 0)
+        {
+			sameProgram = 3;
+			program = argument[1];
+
+		} else if (strcmp(argument[2], argument[3]) == 0 )
+        {
+			sameProgram = 3;
+			program = argument[3];
+
+		} else if ( strcmp(argument[1], argument[2]) == 0)
+        {
+			sameProgram = 2;
+			program = argument[1];
+		}
+	}
+
+	for( int i = 0 ; i < numWords - 1 ; i++ )
+    {
+		if ( sameProgram != 0 && i == sameProgram - 1 )
+        {
+			continue ;
+
+		} else
+        {
+			errorCode = myinit( argument[ i+1 ] ) ;
+			if ( errorCode != 0 )
+            {
+				return errorCode;
+			}
+		}
+		if( sameProgram == -1 )
+        {
+			break;
+		}
+	}
+
+	errorCode = scheduler() ;
+
+	if( sameProgram == -1)
+	{
+		printf ( "Error: Script %s already loaded\n" , program ) ;
+
+	} else if (sameProgram != 0)
+	{
+		printf ( "Error: Script %s already loaded\n" , program ) ;
+	}
+	return errorCode;
+}
+
+static int run(char* program)
+{
+	int errorCode = 0 ;
+	char program_line[1000] ;
+	FILE *p = fopen( program , "r" ) ;
+
+	if( p == NULL )
+	{
+		errorCode = 3 ;
+		return errorCode ;
+	}
+
+	fgets( program_line , 999 , p ) ;
+
+	while( !feof(p) )
+	{
+		if( strcmp ( program_line , "quit\n" ) == 0 ) break ;
+		errorCode = parse( program_line ) ;
+		if( errorCode != 0 )
+		{
+			fclose(p) ;
+			return errorCode ;
+		}
+
+		fgets( program_line , 999 , p ) ;
+	}
+
+	fclose(p) ;
+
+	return errorCode ;
 }

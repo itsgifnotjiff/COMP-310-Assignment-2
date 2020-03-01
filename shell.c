@@ -7,8 +7,8 @@
 
 int main(int argc, const char *argv[])
 {
-    printf("Welcome to the <your name goes here> shell!\n"
-           "Version 1.0 Created January 2020\n");
+    printf("Welcome to the Yordan Radev shell!\n"
+           "Version 2.0 Created February 2020\n");
 
     shell_memory_initialize();
 
@@ -22,7 +22,7 @@ int main(int argc, const char *argv[])
         if (getline(&line, &linecap, stdin) == -1)
             break;
 
-        (void)interpret(line);
+        (void)interpreter(line);
         free(line);
     }
 

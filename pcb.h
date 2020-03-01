@@ -1,12 +1,15 @@
 #ifndef PCB_H
 #define PCB_H
 
-
-typedef struct PCB 
+struct PCB 
 { 
 	int PC ; 
 	int start ; 
 	int end ;
-	struct PCB next*;
+	struct PCB* next;
+};
 
-}PCB;
+struct PCB* constructorPCB ( int start , int end ) ;
+struct PCB* copyPCB ( struct PCB* source ) ;
+
+#endif
