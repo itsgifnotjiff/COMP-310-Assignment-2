@@ -169,6 +169,8 @@ static int run(char* program)
 			return errorCode = interpreter(parse(program_line), 1);
 		}
 
+		//interpreter(parse(program_line), 1);
+
 		fgets( program_line , 999 , p ) ;
 	}
 

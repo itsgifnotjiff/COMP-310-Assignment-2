@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 int parse(char userInput[])
 {
@@ -44,7 +45,7 @@ int shellUI(void)
     while(1)
     {
 		printf( "%s " , prompt ) ;
-		fgets( userInput , 999 , stdin ) ;
+		fgets( userInput , 900 , stdin ) ;
 		errorCode = parse( userInput ) ;
 		if( errorCode == -1 )
         {
