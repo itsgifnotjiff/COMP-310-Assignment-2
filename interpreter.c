@@ -8,7 +8,8 @@
 #include <string.h>
 #include <stdio.h>
 
-static int run(const char *path);
+
+static int run( char* program );
 
 int print( char* argument[] , int numberArgs )
 {
@@ -19,7 +20,7 @@ int print( char* argument[] , int numberArgs )
 		return errorCode ;
 	}
 	char* var = argument[1] ;
-	char* value = getVar( var ) ;
+	char* value = getVariable( var ) ;
 	if(strcmp( value , "Variable does not exist" ) == 0 )
     {
 		errorCode = 2;
@@ -43,7 +44,7 @@ int set(char* argument[], int numberArgs)
 		errorCode = 6 ;
 		return errorCode ;
 	}
-	errorCode = setVal( argument[1] , argument[2] ) ;
+	errorCode = setValue( argument[1] , argument[2] ) ;
 	return errorCode ;
 }
 
@@ -62,7 +63,7 @@ int help()
             "\nquit\tExits / terminates the shell with Bye!"
             "\nset VAR STRING\tAssigns a value to shell memory"
             "\nprint VAR\tDisplays the STRING assigned to VAR"
-            "\nrun SCRIPT.TXT\tExecutes the file SCRIPT.TXT\n"
+            "\nrun SCRIPT.TXT\tExecutes the file SCRIPT.TXT"
 			"\nexec p1 p2 p3\tExecutes concurrent programs\n");
 	return 0;
 }

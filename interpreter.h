@@ -1,6 +1,6 @@
 #ifndef INTERPRETER_H
 #define INTERPRETER_H
 
-int interpreter( char* raw_input ) ;
+int interpreter( char* raw_input[] , int numberArgs ) ;
 
 #endif

@@ -1,80 +1,82 @@
 #include "shellmemory.h"
 
 #include <stdint.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-typedef struct
+struct MEM
 {
-    char *key;
-    char *value;
-} mem_t;
+	char *var;
+	char *value;
+}shellMemory[1000];
 
-#define MEM_LENGTH 100
-mem_t memory[MEM_LENGTH];
+int size = 0;
 
-void shell_memory_initialize()
+int match( char* memory , char* variable )
 {
-    for (size_t i = 0; i < MEM_LENGTH; ++i)
+	int length = strlen( variable ) ;
+    int matchCount = 0 ; 
+
+	for( int i = 0 ; i < length ; i++ ) 
     {
-        memory[i].key = NULL;
-        memory[i].value = NULL;
-    }
+		if ( *(memory+i) == *( variable + i ) ) matchCount++ ;
+	}
+	if (matchCount == length)
+    {
+		return 1 ;
+
+	} else 
+    {
+		return 0 ;
+	}
 }
 
-void shell_memory_destory()
+char* getVariable(char* variable)
 {
-    for (size_t i = 0; i < MEM_LENGTH; ++i)
+	if( size == 0 || variable == NULL )
     {
-        if (memory[i].key != NULL)
-            free(memory[i].key);
-        if (memory[i].value != NULL)
-            free(memory[i].value);
-    }
-}
+		return "Variable does not exist";
+	}
 
-const char *shell_memory_get(const char *key)
-{
-    for (size_t i = 0; i < MEM_LENGTH; ++i)
+	for( int i = 0 ; i < size ; i++ )
     {
-        if (memory[i].key == NULL)
-            continue;
-        if (strcmp(memory[i].key, key) == 0)
-            return memory[i].value;
-    }
-    return NULL;
-}
-
-int shell_memory_set(const char *key, const char *value)
-{
-    for (size_t i = 0; i < MEM_LENGTH; ++i)
-    {
-        if (memory[i].key == NULL)
-            continue;
-        if (strcmp(memory[i].key, key) == 0)
+		if( match( shellMemory[i].var , variable))
         {
-            free(memory[i].value);
-            memory[i].value = strdup(value);
-            return 0;
-        }
-    }
-    size_t possible_slot = MEM_LENGTH;
-    for (size_t i = 0; i < MEM_LENGTH; ++i)
+			char* value = strdup( shellMemory[i].value ) ;
+			return value ;
+		}
+	}
+	return "Variable does not exist";
+}
+
+int setValue(char* variable, char* value) 
+{
+	if( shellMemory[0].var == NULL )
     {
-        if (memory[i].key == NULL && memory[i].value == NULL)
+		shellMemory[0].var = strdup( variable ) ;
+		shellMemory[0].value = strdup( value ) ;
+		size++ ;
+		return 0 ;
+	}
+
+	for( int i = 0 ; i < size ; i++ )
+    {
+		if ( match( shellMemory[i].var , variable ) ) 
         {
-            possible_slot = i;
-            break;
-        }
-    }
-    if (possible_slot == MEM_LENGTH)
+			shellMemory[i].value = strdup(value);
+			return 0;
+		}
+	}
+	if( size == 1000 )
     {
-        return -1;
-    }
-    else
+		return 4 ;
+
+	} else
     {
-        memory[possible_slot].key = strdup(key);
-        memory[possible_slot].value = strdup(value);
-        return 0;
-    }
+		shellMemory[size].var = strdup( variable ) ;
+		shellMemory[size].value = strdup( value ) ;
+		size++ ;
+		return 0 ;
+	}
 }

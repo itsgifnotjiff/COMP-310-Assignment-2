@@ -55,14 +55,14 @@ int scheduler()
 				errorCode = run( linesLeft ) ;
 				if(errorCode == 0)
 				{
-					removeFromRAM(head->start,head->end) ;
+					removeFromRam(head->start,head->end) ;
 					head->PC += linesLeft ;
 					struct PCB* temp = dequeue() ;
 					free(temp) ;
 
 				} else 
 				{
-					clearRAM() ;
+					clearRam() ;
 					return errorCode ;
 				}
 			} else
@@ -76,7 +76,7 @@ int scheduler()
 					head = head->next ;
 				} else
 				{
-					clearRAM() ;
+					clearRam() ;
 					return errorCode ;
 				}
 			}
