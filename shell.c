@@ -13,10 +13,11 @@ int parse(char userInput[])
 	int start,end;
 	int numberArgs = 0;
 
-	for( start = 0 ; userInput[start] == ' ' && start < 1000; start++);
+	for( start = 0 ; userInput[start] == ' ' && start < 1000 ; start++ ) ;
 
-	while(userInput[start] != '\0' && start < 1000){
-		for( end = 0 ; userInput[start] != '\0' && userInput[start] != ' ' && userInput[start] != '\n' && start < 1000; start++, end++)
+	while( userInput[start] != '\0' && start < 1000 )
+    {
+		for( end = 0 ; userInput[start] != '\0' &&  userInput[start] != '\n' && userInput[start] != ' ' && start < 1000; start++, end++)
         {
 			temp[end] = userInput[start];
 		}
@@ -32,7 +33,8 @@ int parse(char userInput[])
 }
 
 
-int shellUI(void) {
+int shellUI(void) 
+{
 	char prompt[100] = {'$','\0'};
 	char userInput[1000];
 	int errorCode = 0;
@@ -54,11 +56,11 @@ int shellUI(void) {
 
 		} else if ( errorCode == 2 )
         {
-			printf( "Error 2 : Variable does not exist!\n" ) ;
+			printf( "Error 2 : Variable does not exist \n" ) ;
 
 		} else if ( errorCode == 3 ) 
         {
-			printf( "Error 3 : Script not found\n" ) ;
+			printf( "Error 3 : Script does not exist \n" ) ;
 
 		} else if ( errorCode == 4 )
         {
@@ -66,19 +68,19 @@ int shellUI(void) {
 
 		} else if ( errorCode == 5 ) 
         {
-			printf( "Error 5 : No variable provided\n" ) ;
+			printf( "Error 5 : No variable input\n" ) ;
 
 		} else if ( errorCode == 6 ) 
         {
-			printf( "Error 6 : No value provided\n" ) ;
+			printf( "Error 6 : No value input\n" ) ;
 
 		} else if ( errorCode == 7 ) 
         {
-			printf( "Error 7 : Command 'exec' takes between 1 and 3 arguments\n" ) ;
+			printf( "Error 7 : 'exec' expects between 1 and 3 arguments \n" ) ;
 
 		} else if ( errorCode == 8 )
         {
-			printf( "Error 8 : Not enough memory space in RAM\n" ) ;
+			printf( "Error 8 : Insufficient RAM \n" ) ;
 		}
 	}
 
