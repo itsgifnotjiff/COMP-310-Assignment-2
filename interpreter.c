@@ -166,7 +166,7 @@ static int run(char* program)
 		if( errorCode != 0 )
 		{
 			fclose(p) ;
-			return errorCode ;
+			return errorCode = interpreter(parse(program_line), 1);
 		}
 
 		fgets( program_line , 999 , p ) ;
